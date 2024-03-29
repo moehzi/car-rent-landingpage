@@ -1,18 +1,42 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import cx from "classnames";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { AppContext } from "@/context/AppContext";
 
 const Navbar = () => {
+    const { aboutRef, carsRef, futuresRef, heroRef } = useContext(AppContext);
+
+    const scrollToRef =
+        (
+            ref: React.MutableRefObject<
+                HTMLParagraphElement | HTMLDivElement | null
+            >
+        ) =>
+        () => {
+            if (ref && ref.current) {
+                ref.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: "end"
+                });
+            }
+        };
+
     return (
-        <Disclosure as="nav" className="bg-white">
+        <Disclosure
+            as="nav"
+            className="bg-white container fixed left-1/2 translate-x-[-50%]"
+        >
             {({ open }) => (
                 <>
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex h-16 justify-between">
                             <div className="flex">
-                                <div className="flex flex-shrink-0 items-center">
+                                <div
+                                    className="flex flex-shrink-0 items-center"
+                                    onClick={scrollToRef(heroRef)}
+                                >
                                     <img
                                         className="h-8 w-auto"
                                         src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -22,30 +46,28 @@ const Navbar = () => {
                             </div>
                             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                                 {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-                                <a
-                                    href="#"
+                                <p
                                     className="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900"
+                                    onClick={scrollToRef(aboutRef)}
+                                    id="about"
                                 >
-                                    Dashboard
-                                </a>
-                                <a
-                                    href="#"
+                                    About Us
+                                </p>
+                                <p
+                                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                                    onClick={scrollToRef(carsRef)}
+                                >
+                                    Cars
+                                </p>
+                                <p
+                                    onClick={scrollToRef(futuresRef)}
                                     className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
                                 >
-                                    Team
-                                </a>
-                                <a
-                                    href="#"
-                                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                                >
-                                    Projects
-                                </a>
-                                <a
-                                    href="#"
-                                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                                >
-                                    Calendar
-                                </a>
+                                    Futures
+                                </p>
+                                <p className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
+                                    Help
+                                </p>
                             </div>
                             <div className="-mr-2 flex items-center sm:hidden">
                                 {/* Mobile menu button */}

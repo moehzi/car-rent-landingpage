@@ -21,6 +21,13 @@ body {
     background-color: #fff;
 }
 
+.section {
+    height: 100vh;
+    scroll-snap-align: center;
+    padding-top: 85px;
+    scroll-behavior: smooth;
+}
+
 @layer utilities {
     .text-balance {
         text-wrap: balance;
